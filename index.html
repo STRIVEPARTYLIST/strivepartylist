@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S.T.R.I.V.E PARTYLIST</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: url("background.png") no-repeat center center/cover;
+    min-height: 100vh;
+    color: white;
+    text-align: center;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.55);
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+header img {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(255,215,0,0.9))
+            drop-shadow(0 0 20px rgba(138,43,226,0.6));
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-top: 15px;
+}
+
+.full-name {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.slogan {
+    margin-top: 10px;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.section-title {
+    margin: 60px 0 25px;
+    font-size: 2rem;
+}
+
+.candidates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 15px rgba(255,215,0,0.8),
+                0 0 25px rgba(186,85,211,0.6);
+}
+
+.card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.surname {
+    margin-top: 15px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.firstname {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 4px;
+}
+
+.position {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: rgba(20,20,20,0.95);
+    color: white;
+    border-radius: 15px;
+    width: 750px;
+    max-width: 95%;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    animation: popupAnimation 0.35s ease;
+
+    /* glow border */
+    border: 2px solid rgba(255,215,0,0.8);
+    box-shadow: 0 0 10px rgba(255,215,0,0.8),
+                0 0 25px rgba(186,85,211,0.7),
+                0 0 40px rgba(138,43,226,0.6);
+    
+}
+
+/* LEFT SIDE */
+.modal-text {
+    width: 60%;
+    padding: 25px;
+    text-align: left;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.modal-text h2 {
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.modal-text h4 {
+    color: #FFd700;
+    margin-bottom: 15px;
+}
+
+.modal-text ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-text p {
+    margin-bottom: 10px;
+}
+
+/* RIGHT SIDE */
+.modal-photo {
+    width: 40%;
+    background: #eee;
+    border-left: 1px solid rgba(255,255,255,0.2);
+}
+
+.modal-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.credentials-section {
+    margin-top: 12px;
+    background: rgba(255,255,255,0.08);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.credentials-section h5 {
+    color: #ffd700;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.credentials-section ul {
+    margin-left: 18px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+footer {
+    margin-top: 60px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.platforms {
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    gap: 20px;
+}
+
+.platform {
+    background: rgba(255,255,255,0.15);
+    padding: 20px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.platform:hover {
+    transform: translateY(-5px);
+    background: rgba(164, 81, 81, 0.25);
+    box-shadow: 0 0 15px rgba(255,215,0,0.8),
+                0 0 25px rgba(138,43,226,0.6);
+}
+
+.platform h3 {
+    margin-bottom: 8px;
+}
+
+.modal-text {
+    overflow-y: auto;
+}
+
+@keyframes popupAnimation {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .card img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .card {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+        .modal-content {
+        flex-direction: column;
+        width: 95%;
+    }
+
+    .modal-text {
+        width: 100%;
+        max-height: none;
+    }
+
+    .modal-photo {
+        width: 100%;
+    }
+
+    .modal-photo img {
+        width: 100%;
+        height: auto;
+    }
+
+    .platforms {
+        grid-template-columns: 1fr;
+    }
+
+    header img {
+        width: 140px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="overlay">
+
+<header>
+    <img src="logo.png" alt="Partylist Logo">
+    <h1></h1>
+    <div class="full-name">Servant-Hearted, Transformative, and Responsible Leaders with Integrity, guided by Vision and committed to Empowering others.</div>
+    <div class="slogan">"Leadership. Integrity. Action."</div>
+</header>
+
+<h2 class="section-title">Executive Officers</h2>
+
+<section class="candidates">
+
+<div class="card" onclick="openModal('president')">
+    <img src="president.jpg">
+    <div class="surname">BELLO</div>
+    <div class="firstname">Princess Diana O.</div>
+    <div class="position">President</div>
+</div>
+
+<div class="card" onclick="openModal('vicepresident')">
+    <img src="vicepresident.jpg">
+    <div class="surname">PANGUE</div>
+    <div class="firstname">Princess Mae "Hilarie" B.</div>
+    <div class="position">Vice President</div>
+</div>
+
+<div class="card" onclick="openModal('secretary')">
+    <img src="secretary.jpg">
+    <div class="surname">ARCILLA</div>
+    <div class="firstname">Jing-er D.</div>
+    <div class="position">Secretary</div>
+</div>
+
+<div class="card" onclick="openModal('assistantsecretary')">
+    <img src="assistantsecretary.jpg">
+    <div class="surname">ROLDAN</div>
+    <div class="firstname">Mary Danielle P.</div>
+    <div class="position">Assistant Secretary</div>
+</div>
+
+<div class="card" onclick="openModal('treasurer')">
+    <img src="treasurer.jpg">
+    <div class="surname">VALLEJO</div>
+    <div class="firstname">Jhenmer Ashley A.</div>
+    <div class="position">Treasurer</div>
+</div>
+
+<div class="card" onclick="openModal('auditor')">
+    <img src="auditor.jpg">
+    <div class="surname">ARCEO</div>
+    <div class="firstname">Kid Wynzill I.</div>
+    <div class="position">Auditor</div>
+</div>
+
+<div class="card" onclick="openModal('pro')">
+    <img src="pro.jpg">
+    <div class="surname">OPEÑA</div>
+    <div class="firstname">John Benedick C.</div>
+    <div class="position">P.R.O.</div>
+</div>
+
+<div class="card" onclick="openModal('assistantpro')">
+    <img src="assistantpro.jpg">
+    <div class="surname">FERNANDO</div>
+    <div class="firstname">Kristina Cassandra G.</div>
+    <div class="position">Assistant P.R.O.</div>
+</div>
+
+</section>
+
+
+<h2 class="section-title">Grade Level Representatives</h2>
+
+<section class="candidates">
+
+<div class="card" onclick="openModal('g12rep1')">
+    <img src="g12rep1.jpg">
+    <div class="surname">BOLOR</div>
+    <div class="firstname">Mark Andrei M.</div>
+    <div class="position">Grade 12 Representative</div>
+</div>
+
+<div class="card" onclick="openModal('g12rep2')">
+    <img src="g12rep2.jpg">
+    <div class="surname">MOJICA</div>
+    <div class="firstname">Stacey M.</div>
+    <div class="position">Grade 12 Representative</div>
+</div>
+
+<div class="card" onclick="openModal('g10rep1')">
+    <img src="g10rep1.jpg">
+    <div class="surname">FLORES</div>
+    <div class="firstname">Sophia Trisha C.</div>
+    <div class="position">Grade 10 Representative</div>
+</div>
+
+<div class="card" onclick="openModal('g10rep2')">
+    <img src="g10rep2.jpg">
+    <div class="surname">MENDOZA</div>
+    <div class="firstname">Eurika Janisse C.</div>
+    <div class="position">Grade 10 Representative</div>
+</div>
+
+<div class="card" onclick="openModal('g9rep1')">
+    <img src="g9rep1.jpg">
+    <div class="surname">REVAMONTE</div>
+    <div class="firstname">Zaniyah Keisha A.</div>
+    <div class="position">Grade 9 Representative</div>
+</div>
+
+<div class="card" onclick="openModal('g9rep2')">
+    <img src="g9rep2.jpg">
+    <div class="surname">SAYNO</div>
+    <div class="firstname">Naomi Mikaela M.</div>
+    <div class="position">Grade 9 Representative</div>
+</div>
+
+<div class="card" onclick="openModal('g8rep1')">
+    <img src="g8rep1.jpg">
+    <div class="surname">ARCILLA</div>
+    <div class="firstname">Bettina Bianca S.</div>
+    <div class="position">Grade 8 Representative</div>
+</div>
+
+<div class="card" onclick="openModal('g8rep2')">
+    <img src="g8rep2.jpg">
+    <div class="surname">FELIAS</div>
+    <div class="firstname">Earin Jaden S.</div>
+    <div class="position">Grade 8 Representative</div>
+</div>
+
+</section>
+
+<h2 class="section-title">PLATFORMS</h2>
+
+<section class="platforms">
+
+<div class="platform">
+<h3>PLATFORM 1</h3>
+<p>DESCRIPTION</p>
+</div>
+
+<div class="platform">
+<h3>PLATFORM 2</h3>
+<p>DESCRIPTION</p>
+</div>
+
+<div class="platform">
+<h3>PLATFORM 3</h3>
+<p>DESCRIPTION</p>
+</div>
+
+</section>
+
+<footer>
+    Vote Straight, Vote S.T.R.I.V.E.
+</footer>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+<div class="modal-content">
+
+<span class="close" onclick="closeModal()">&times;</span>
+
+<div class="modal-text" id="modal-text">
+</div>
+
+<div class="modal-photo">
+<img id="modal-image" src="">
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const candidates = {
+
+president: {
+text: `
+
+<h2>BELLO, Princess Diana O.</h2>
+<h4>President</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Taylor</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Elementary Consistent Honor Student</li>
+<li>JHS Consistent Honor Student</li>
+<li>Grade 11 Consistent Honor Student</li>
+<li>Ranked 1st, S.Y. 2022 - 2023</li>
+<li>Top Performer, S.Y. 2015 – 2016 and 2016 – 2017, Marikina Catholic School</li>
+<li>Top Performer in JHS, S.Y. 2023 – 2024</li>
+<li>3rd Quarter Highest Usage Award, S.Y. 2022 - 2023</li>
+<li>Scholastic 100 Lexile Growth Award, S.Y. 2022 - 2023</li>
+<li>Scholastic 100 Lexile Growth Award, S.Y. 2023 - 2024</li>
+<li>Scholastic 100 Lexile Growth Award, S.Y. 2024 - 2025</li>
+<li>ALEKS Awardee, S.Y. 2022 - 2023</li>
+<li>Best in Araling Panlipunan, S.Y. 2018 - 2019</li>
+<li>Best in Science, S.Y. 2016 - 2017 and 2018 - 2019, Marikina Catholic School and Gentle Angels School</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>FEU Roosevelt Marikina Student Council Representative, S.Y. 2021–2022</li>
+<li>FEU Roosevelt Marikina  Student Council Representative, S.Y. 2022–2023</li>
+<li>FEU Roosevelt Marikina Student Council Representative, S.Y. 2024–2025</li>
+<li>FEU Roosevelt Marikina Peer Counseling Society Assistant Secretary, S.Y. 2023–2024</li>
+<li>FEU Roosevelt Marikina President’s Executive Staff, S.Y. 2024–2025</li>
+<li>FEU Roosevelt Marikina President’s Executive Staff, S.Y. 2025–2026</li>
+<li>FEU Roosevelt Marikina Leadership Awardee, Batch 2024–2025</li>
+<li>Student Leader, 2019–onwards</li>
+<li>FEU Roosevelt Student Leadership Summit, FEUR Cainta, 2024</li>
+<li>FEU Roosevelt Student Leadership Summit, FEUR Marikina, 2025</li>
+<li>Homeroom Officer (President, Vice President, or Secretary), Elementary</li>
+<li>Class President, S.Y. 2022–2023</li>
+<li>Class President, S.Y. 2023–2024</li>
+<li>Class President, S.Y. 2024–2025</li>
+<li>Class President, S.Y. 2025–2026</li>
+<li>Editor-in-Chief, Campus Journalism, S.Y. 2022–2023</li>
+<li>Team Debate Captain, S.Y. 2022–2023</li>
+<li>FEU Roosevelt (FEURM) Kusina Buddies Member, S.Y. 2022–2023</li>
+<li>FEU Roosevelt (FEURM) Kusina Buddies Member, S.Y. 2023–2024</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Participant, TAM Seminar: Understanding Growth and Responsibility (Sex Education, SOGIE, and Mental Health), FEURM, S.Y. 2025–2026</li>
+<li>Speaker, “Discovering Your Why,” FEURM</li>
+<li>Speaker, “Leadership, Service, and Values,” FEURM</li>
+<li>Host, FEURMSC Leadership Seminar</li>
+<li>Host, TAM Seminar: Understanding Growth and Responsibility (Grade 12 Students)</li>
+<li>Volunteer, La Liga Mariquina (External Organization)</li>
+<li>Debate Winner, “Whether or Not Remulla Is Deserving to Be Ombudsman,” S.Y. 2025–2026</li>
+<li>Debate Winner, “Whether or Not Marijuana Should Be Legalized for Healthcare Purposes,” S.Y. 2025–2026</li>
+<li>Debate Winner, “Whether or Not the Philippines Should Sever Diplomatic Ties with China over Territorial Disputes,” S.Y. 2025–2026</li>
+<li>English Debate Participant, S.Y. 2024–2025</li>
+<li>Science Quiz Bee Participant, S.Y. 2025–2026</li>
+<li>2nd Place, Battle of the Brains, S.Y. 2022–2023</li>
+<li>Girl Scout, Marikina Catholic School, S.Y. 2015–2016</li>
+<li>Best in Poem Writing, S.Y. 2017–2018</li>
+<li>Best in Poem Writing, S.Y. 2018–2019</li>
+<li>1st Place, Drawing Contest, S.Y. 2019–2020</li>
+<li>Champion (1st Place), Cultural Dance Contest, S.Y. 2020–2021</li>
+<li>1st Place, Spelling Bee, S.Y. 2020–2021</li>
+<li>1st Place, Storytelling Contest</li>
+<li>Champion, Slogan Making, S.Y. 2020–2021</li>
+<li>Filipino Quiz Bee Participant, S.Y. 2023–2024</li>
+<li>3rd Place, FEURM Dancing Contest</li>
+<li>Member, Kusina Buddies Club, S.Y. 2022–2023</li>
+<li>ICT Week Participant (Coding), S.Y. 2024–2025</li>
+<li>FEURM Talumpati Participant, S.Y. 2024–2025</li>
+<li>Event Emcee, S.Y. 2019–2026</li>
+<li>Participated in Science Quiz Bee 2025—2026</li>
+<li>Facilitators in Open House 2021—2022</li>
+<li>LGBTQ and Women's advocate 2024—2025</li>
+<li>Participated in ICT week 2024—2025</li>
+<li>Emcee in Flag Ceremony 2024—2025</li>
+<li>Leaders in Flag Ceremony 2023—2024</li>
+<li>Host in Choosing your Career Path 2021-2022</li>
+<li>Winner in Eco Fashion show (Taylor)</li>
+<li>Tutor in Orphanage and Children at Marikina</li>
+<li>Part of AVP about choosing FEU — "Go Up" by SB19</li>
+<li>Black out poetry — Effective Communication S.Y. 2025—2026</li>
+</ul>
+</div>
+`,
+image: "president2.jpg"
+},
+
+vicepresident: {
+text: `
+<h2>PANGUE, Princess Mae "Hilarie" B.</h2>
+<h4>Vice President</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Weber</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Consistent Top student since Grade 1 to Grade 4 in Elementary</li>
+<li>Consistent Honor student since Grade 8 to Grade 10</li>
+<li>Top 1 in E.S.P. S.Y. 2022 - 2023</li>
+<li>Outstanding Performance in E.S.P. S.Y. 2023 - 2024</li>
+<li>Best in T.L.E. S.Y. 2022 - 2023</li>
+<li>Perfect Attendance Awardee S.Y. 2023 - 2024</li>
+<li>Graduated with Honors</li>
+<li>With Honors (1st to 3rd Quarter) 2025 - 2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Treasurer of PHS-MC ALERT/REDCROSS YOUTH COUNCIL S.Y 2023- 2024</li>
+<li>President of PHS-MC ALERT (Marikina City Active Learners Emergency Resilient Team) S.Y 2024-2025</li>
+<li>Grade 8 Class President</li>
+<li>Grade 9 Class Vice President</li>
+<li>Grade 10 Class Vice President</li>
+<li>Grade 11 Class P.R.O</li>
+<li>Best Class President Awardee S.Y 2022-2023</li>
+<li>Club Day Chairman S.Y 2023-2024</li>
+<li>Earthquake and Fire Drill Rescue Team, Team Leader</li>
+<li>Fire Prevention Month Chairman S.Y 2024-2025</li>
+<li>Earthquake and Fire Drill Seminar Chairman S.Y 2024-2025</li>
+<li>Brigada Eskwela Leadership Training and Hazard Mapping Chairman S.Y 2023-2024</li>
+<li>Grade 11 Representative of FEU Roosevelt Marikina Student Council 2025-2026</li>
+<li>Classroom P.R.O. S.Y. 2025-2026</li>
+<li>FEURM Foundation Day Yell Team Leader</li>
+
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Best in Mascara, Mini Prom in Grade 3</li>
+<li>Best in Slogan Making for Women’s Month S.Y. 2024 - 2025</li>
+<li>Grand Champion in SciPop Dance Competition S.Y 2023-2024</li>
+<li>MC at PHS-MC ALERT Induction Ceremony S.Y 2023-2024 Champion in Sabayang Pagbigkas S.Y 2024-2025</li>
+<li>1st Place in MathAwitan S.Y 2024-2025</li>
+<li>Participated in Fire Square Roadshow S.Y 2023-2024</li>
+<li>Club Member of PHS MC-ALERT S.Y 2022-2023</li>
+<li>Participated in RCY Youth Volunteer Formation Course S.Y 2023-2024</li>
+<li>Participated in Red Cross Youth Council Leadership Training S.Y 2023-2024</li>
+<li>Participated in PMRCIP 2025 S.Y 2024-2025</li>
+<li>Participated in MC-ALERT Fire Square Roadshow - Fire Prevention and Women's Month Celebration 2025 || 15 March 2025 S.Y 2024-2025</li>
+<li>Conducted Fire Prevention Month Program in Parang High School S.Y 2024-2025</li>
+<li>Conducted a Monthly Earthquake and Fire Drill S.Y 2023-2024, 2024-2025</li>
+<li>Conducted a Earthquake and Fire Drill Seminar for Grade 7 to 12 S.Y 2024-2025</li>
+<li>FEURM Thespian Guild Member S.Y 2025-2026</li>
+<li>Participated in TamsWalk FlashMob By Thesphian Guild S.Y 2025-2026</li>
+<li>Participated in Hataw Sayaw Wellness S.Y 2024-2025</li>
+<li>United Marikina Community Fire and Rescue Volunteered Year 2023</li>
+<li>Member of Park 14 Youth Organization</li>
+<li>Participated in Fire Rescue Training In United Marikina Community Fire and Rescue Volunteer</li>
+<li>Member of Squirettes of Mary Immaculate Year 2022 to 2025</li>
+<li>Part of St. Gabriel Parish Church Choir 2022-2023</li>
+<li>Participated in TamsWalk Flashmob S.Y 2025-2026</li>
+<li>Participated in Debate S.Y 2025-2026</li>
+<li>Participated in Thespian Guild Christmas Flashmob at SM Marikina and Clock Tower S.Y 2025-2026</li>
+<li>President of Squirettes of Mary Immaculate Year 2025-2026</li>
+<li>Kampeon sa Drama Radyo Buwan ng Wika S.Y. 2025-2026</li>
+<li>Champion in United Nations Eco Fashion Male Category</li>
+<li>3rd Place in Genius Gala Science Month 2025</li>
+<li>Winner in Eco Fashion Show 2025</li>
+<li>Hosted for Alternative Class 2026-2026</li>
+<li>Hosted for FEURM Foundation Day Yell Practice</li>
+<li>Participated in FEURM Open House 2024</li>
+<li>Participated in FEURM Open House 2025</li>
+</ul>
+</div>
+`,
+image: "vicepresident2.jpg"
+},
+
+secretary: {
+text: `
+<h2>ARCILLA, Jing-er D.</h2>
+<h4>Secretary</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Maslow</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Consistent Top 2 in Kindergarten - Preparatory</li>
+<li>With Honors 2018 - 2019</li>
+<li>With Honors 2019 - 2020</li>
+<li>With Honors 2020 - 2021</li>
+<li>With Honors 2021 - 2022</li>
+<li>With Honors 2022 - 2023</li>
+<li>With Honors 2023 - 2024</li>
+<li>With High Honors 2024 - 2025</li>
+<li>Best in Mathematics</li>
+<li>Best in Science</li>
+<li>Best in Filipino</li>
+<li>Best in English</li>
+<li>Best in T.L.E. (E.I.M.)</li>
+<li>Best in Araling Panlipunan</li>
+<li>Best in Edukasyon sa Pagpapakatao</li>
+<li>Best in MAPEH</li>
+<li>With Honors (1st to 3rd quarter) 2025 - 2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Class Public Relation Officer 2016 - 2017</li>
+<li>Class Public Relation Officer 2017 - 2018</li>
+<li>Class Sergeant at Arms 2018 - 2019</li>
+<li>Class Public Relation Officer 2019 - 2020</li>
+<li>Class President 2020 - 2021</li>
+<li>SPG Mayor 2020 - 2021</li>
+<li>Class Vice President 2021 - 2022</li>
+<li>Class President 2022 - 2023</li>
+<li>Class Vice President 2023 - 2024</li>
+<li>Class President 2024 - 2025</li>
+<li>Public Information Officer in ELITE Club (Formerly English Club) 2024</li>
+<li>Tagasuri (Auditor) in KAPARIZ Club (Filipino Club) 2024</li>
+<li>Committee on Attendance in Interact Club (Rotary Club) 2024</li>
+<li>LiderEkta: Leadership Training Participant 2024</li>
+<li>Class Vice President of 11 Maslow 2025 - 2026</li>
+<li>Participated in Leadershift Seminar of FEURM 2025</li>
+<li>Student Council Executive Staff Assistant Secretary 2025 - 2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Gold Medalist in Palarong Pampaaralan 2013</li>
+<li>Participant in Ginoo at Binibining Kalikasan 2015</li>
+<li>Math Quiz Bee 2nd Place 2017</li>
+<li>Poem Making 3rd Place 2017</li>
+<li>4th Place in Feature Writing in DSPC 2019</li>
+<li>MTAP Participant S.Y. 2017 - 2019</li>
+<li>Participated in Folk Dancing District Competition 2019</li>
+<li>SPC Participant 2024</li>
+<li>Participated in Seminar of Cyber Safety and Online Sexual Abuse or Exploitation of Children 2024</li>
+<li>Top 11 in Math Quiz Bee 2024</li>
+<li>1st Place in Science Quiz Bee 2024</li>
+<li>Participant in Math Olympics 2025</li>
+<li>Best Group for Skit Presentation in Citizen and Good Governance 2025</li>
+<li>Participated in Values Formation: An Exit & Orientation Seminar for Grade 10 Students 2025</li>
+<li>Participant in TAMhayag 2025</li>
+<li>One of the winners in Eco-Fashion Show 2025</li>
+<li>Participant in Science Quiz Bee 2025</li>
+<li>1st Place in Debate 2025</li>
+<li>Participant in Indakan 2026</li>
+</ul>
+</div>
+`,
+image: "secretary2.jpg"
+  
+},
+
+assistantsecretary: {
+text: `
+<h2>ROLDAN, Mary Danielle P.</h2>
+<h4>Assistant Secretary</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Flemming</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Speech Contest Winner for Kindergarten Level at Infant Jesus Academy (Academic Year 2013 - 2014)</li>
+<li>Timpalak Bigkasan Representative during the Filipino month for Grade 1 Level (Academic Year 2014-2015)</li>
+<li>Speech Contest Winner for Grade 1 Level at Infant Jesus Academy (Academic Year 2014-2015)</li>
+<li>Speech Contest Winner for Grade 2 Level at Infant Jesus Academy (Academic Year 2015-2016)</li>
+<li>Speech Contest Winner for Grade 4 Level at Infant Jesus Academy (Academic Year 2017-2018)</li>
+<li>3rd Honors - Kindergarten 2</li>
+<li>3rd Honors - Grade 2</li>
+<li>3rd Honors - Grade 3</li>
+<li>Best in Science and English - Grade 4</li>
+<li>Excellence in Science and Mathematics - Grade 5</li>
+<li>Bronze Medalist Berean Awardee - Grade 7</li>
+<li>Bronze Medalist Berean Awardee - Grade 8</li>
+<li>Bronze Medalist Berean Awardee - Grade 9</li>
+<li>Gold Medalist Berean Awardee - Grade 10</li>
+<li>Excellence Award in Spatial Intelligence (Academic Year 2019-2020)</li>
+<li>Excellence Award in Logical-Mathematical and Spatial Intelligence (Academic Year 2020-2021)</li>
+<li>Excellence Award in Musical and Spatial Intelligence (Academic Year 2021-2022)</li>
+<li>Excellence Award in Logical-Mathematical Intelligence (Academic Year 2023-2024)</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Class Secretary of Grade 6- Zircon (Academic Year 2020-2021)</li>
+<li>Class Secretary of Grade 7 - Jacinth (Academic Year 2021-2022)</li>
+<li>Class president of Grade 8-Sardonyx (Academic Year 2022 - 2023)</li>
+<li>Student Council Grade 8 Representative (Academic Year 2022 - 2023)</li>
+<li>Class President of Grade 11-Fleming HSA-C (Academic Year 2025-2026)</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Participated in Music Club of Catholic Filipino Academy</li>
+<li>Participated in Character Development Seminar at Catholic Filipino Academy</li>
+<li>Participated in the Outreach Program of Catholic Filipino Academy in Missionaries of Charity - Home of Love located in Emerald Hills, Antipolo City (Academic Year 2018-2019)</li>
+<li>Emcee during the Online Foundation Day Program of BCI (Academic Year 2022- 2023)</li>
+<li>Facilitator during the Online Foundation Day Program of BCI (Academic Year 2022-2023)</li>
+<li>Participated in the Christmas Community Outreach Program of Berean Crosspointe Marikina (School Year 2022 - 2023)</li>
+<li>Participated in Musical Play at BCI Marikina (2022-2023)</li>
+<li>Participated in Musical Play at BCI Marikina (2024-2025)</li>
+<li>Journalist of BCI Marikina (2024-2025)</li>
+<li>Member of Robotics Club of BCI Marikina (School Year 2024-2025)</li>
+<li>Munting Kristo Choir Member (2025-2026)</li>
+<li>Member of Ministry of Lectorate in Holy Family Parish (2025-2026)</li>
+<li>Candidate in JCI Marikina Marikit (2025-2026)</li>
+</ul>
+</div>
+`,
+image: "assistantsecretary2.jpg"
+},
+
+treasurer: {
+text: `
+<h2>VALLEJO, Jhenmer Ashley A.</h2>
+<h4>Treasurer</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Berners-Lee</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Math Quiz Bee Champion - Kinder 1</li>
+<li>Math Quiz Bee Champion - Kinder 2</li>
+<li>Spelling Quiz Bee 2nd Place - Kinder 2</li>
+<li>Graduated Kinder 2 as the Valedictorian</li>
+<li>Spelling Bee - Champion</li>
+<li>Story Telling Competition - 2nd Place</li>
+<li>Math Quiz Bee - 3rd Place</li>
+<li>Grade 01 3rd Honors</li>
+<li>Story Telling Competition - Participant</li>
+<li>Mathematics Quiz Bee - Champion</li>
+<li>Grade 02 With Honors</li>
+<li>Science Quiz Bee - Participant</li>
+<li>Story Telling Competition - Participant</li>
+<li>Grade 03 With Honors</li>
+<li>Grade 04 With Honors</li>
+<li>Grade 05 With Honors</li>
+<li>Grade 06 Graduated with Honors</li>
+<li>1st Place - Batch-wide Pinakamahusay sa Pagsulat ng Iskrip (Radio Broadcasting)</li>
+<li>3rd Place - Batch-wide Overall Radio Broadcasting for Filipino Category</li>
+<li>7th Place - Batch-wide Infomercial for Filipino Category (Radio Broadcasting)</li>
+<li>Grade 07 With Honors</li>
+<li>Grade 08 With Honors</li>
+<li>Grade 09 With Honors</li>
+<li>Grade 10 With Honors</li>
+<li>Grade 11 (1st to 3rd quarter) With High Honors</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Gr05 Homeroom Sergeant-at-arms</li> 
+<li>Gr05 SSG Level Representative</li>
+<li>Gr08 Homeroom P.M. Session Class Monitor</li>
+<li>Gr09 MariSci STEP Organization Level Representative</li>
+<li>Gr09 Homeroom Protocol Officer</li>
+<li>Gr10 Homeroom Protocol Officer</li>
+<li>Gr11 Homeroom President</li>
+<li>Gr11 FEURM TechTroop Club President</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>S.Y. 2018 - 2019 Cooking Club Member</li>
+<li>S.Y. 2019 - 2020 Music Club Member</li>
+<li>S.Y. 2021 - 2022 MariSci Mathematics Club Member</li>
+<li>S.Y. 2021 - 2022 MariSci Youth for Environment in Schools Organization Member</li>
+<li>S.Y. 2022 - 2023 MariSci Mathematics Club Member</li>
+<li>S.Y. 2022 - 2023 MariSci STEP Organization Member</li>
+<li>S.Y. 2023 - 2024 MariSci Mathematics Club Member</li>
+<li>STEP Organization’s 2 Day Programming Participant</li>
+<li>S.Y. 2023 - 2024 MariSci STEP Organization Member</li>
+<li>S.Y. 2024 - 2025 MariSci Robotics Club Member</li>
+<li>S.Y. 2024 - 2025 MariSci STEP Organization Member</li>
+<li>S.Y. 2024 - 2025 ICT / Electronics Student Teacher</li>
+<li>ADMU ALPAS Conference 2024 Participant</li>
+<li>S.Y. 2025 - 2026 SPECTRA Club's Science Quiz Bee Participant</li>
+<li>S.Y. 2025 - 2026 SPECTRA Club's Amazing Race 3rd Place</li>
+<li>S.Y. 2025 - 2026 Computer Programming 1 & Robotics 10 Student Teacher</li>
+<li>S.Y. 2025 - 2026 United Nations Debate Participant</li>
+<li>MLBB Intramurals 2025 Facilitator</li>
+<li>S.Y. 2025 - 2026 Flashmob Participant</li>
+<li>FEURM’s Open House Facilitator</li>
+<li>ICT Week’s Digital Poster Making Host</li>
+<li>ICT Week’s MLBB Tournament Facilitator</li>
+<li>ICT Week’s Culminating Activity Facilitator</li>
+</ul>
+</div>
+`,
+image: "treasurer2.jpg"
+},
+
+auditor: {
+text: `
+<h2>ARCEO, Kid Wynzill I.</h2>
+<h4>Auditor</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Rousseau</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Consistent Top Achiever in Elementary</li>
+<li>With Honors 2022 - 2023</li>
+<li>With Honors 2023 - 2024</li>
+<li>With Honors 2024 - 2025</li>
+<li>With Honors (1st to 3rd Quarter) 2025 - 2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Elected As “Auditor ‘22 - ‘23”</li>
+<li>Classroom President  2024 - 2025</li>
+<li>Grade 10 Representative in Values Guild 2024 - 2025</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>MTAP Representative 2012</li>
+<li>3rd Place 2 Standard Category: Juvenile Standard</li>
+<li>Dancesport Competition (Marikina DIvision Palaro) 2018 - 2019</li>
+<li>Participated in Boy Scout Of The Philippines 2014 - 2015</li>
+<li>Participated in Science Bowl 2022 - 2023</li>
+<li>A Student Of The Star Section (2023 - 2024)</li>
+<li>Sabayang Pagbigkas Champion (2024 - 2025)</li>
+<li>MathAwitan 1st Place (2024 - 2025)</li>
+<li>One of the Judges in Sabayang Pagbigkas 2025</li>
+</ul>
+</div>
+`,
+image: "auditor2.jpg"
+},
+
+pro: {
+text: `
+<h2>OPEÑA, John Benedick C.</h2>
+<h4>Public Relations Officer (P.R.O.)</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Rousseau</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Consistent Honor Student</li>
+<li>Consistent Top Student</li>
+<li>Best in Filipino S.Y '22 - '23</li>
+<li>Best in TLE S.Y '22 - '23</li>
+<li>Best in English S.Y '23 - '24</li>
+<li>Best in Filipino S.Y '23 - '24</li>
+<li>Best in AP S.Y '23 - '24</li>
+<li>Best in Science S.Y '23 - '24</li>
+<li>Best in Mapeh S.Y '23 - '24</li>
+<li>Best in ESP S.Y '23 - '24</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Classroom Vice President S.Y '15 - '16</li>
+<li>Classroom President S.Y '16 - '17</li>
+<li>Classroom President S.Y '17 - '18</li>
+<li>Classroom President S.Y '18 - '19</li>
+<li>Classroom Vice President S.Y '21 - '22</li>
+<li>Classroom Vice President S.Y '22 - '23</li>
+<li>Classroom President S.Y '23 - '24</li>
+<li>Classroom President S.Y '24 - '25</li>
+<li>Classroom President FEURM ROUSSEAU </li>
+<li>Parang Elementary School - Kabs Scout Member S.Y '16 - '17</li>
+<li>Marikina High School - Social Studies Club Vice President S.Y '23 - '24</li>
+<li>Marikina High School - Supreme Secondary Learner Government PIO S.Y '24 - '25</li>
+<li>Marikina High School - Youth for Environment and School Organization Treasurer S.Y '24 - '25</li>
+<li>Marikina High School - Supreme Secondary Learner Government Creatives Committee Chairperson S.Y '24 - '25</li>
+<li>Marikina High School - Campus Integrity Crusader PIO S.Y '24 - '25</li>
+<li>Youth Leadership Excellence Awardee  (YLEA)</li>
+<li>Binhi English Literacy Foundation Inc - Volunteer </li>
+<li>FEURM Socialista - Assistant Secretary A.C '25-'26</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Parang Elementary School Spoken Poetry 2nd Placer</li>
+<li>Participant of Spelling Bee Competition 2017</li>
+<li>Host of Paskuhang MHSians 2025</li>
+<li>Host of Marikina High School Teachers’ Day Special</li>
+<li>MTAP Participant S.Y ‘16 - ‘17</li>
+<li>Brigada Eskwela Participants</li>
+<li>Moderator of FEURM Open House</li>
+<li>Moderator of FEURM United Nations Debate Competition 2025</li>
+</ul>
+</div>
+`,
+image: "pro2.jpg"
+},
+
+assistantpro: {
+text: `
+<h2>FERNANDO, Kristina Cassandra G.</h2>
+<h4>Assistant Public Relations Officer (P.R.O.)</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Gates</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Consistent With Honors</li>
+<li>Best in MAPEH</li>
+<li>With Honors SY. 2023-2024</li>
+<li>With Honors SY. 2024-2025</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Concepcion Elementary School Girl Scout Member SY 2016-2018</li>
+<li>Homeroom Secretary SY. 2021-2022</li>
+<li>Homeroom Secretary SY. 2022-2023</li>
+<li>Homeroom Vice President SY. 2023-2024</li>
+<li>Homeroom Treasurer SY. 2024-2025</li>
+<li>Homeroom Vice President SY. 2025-2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Vice Chairperson of Creatives Committee</li>
+<li>MTAP Participant S.Y. 2017-2018</li>
+<li>Grade 10 Member of Interact Club</li>
+<li>Grade 8 Debate Representatives English Month</li>
+<li>Grade 9 Debate Participants English Month</li>
+<li>Grade 10 Debate 4th Placer English Month</li>
+<li>FEURM 2nd Placer DramaRadyo</li>
+<li>FEURM Champion Eco Fashion Show (Brazil)</li>
+</ul>
+</div>
+`,
+image: "assistantpro2.jpg"
+},
+
+g12rep1: {
+text: `
+<h2>BOLOR, Mark Andrei M.</h2>
+<h4>Grade 12 Representative</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Pasteur</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Top Award S.Y. 2014-2015</li>
+<li>2 special Award S.Y. 2014-2015</li>
+<li>included in the Top Students S.Y. 2016-2017</li>
+<li>included in the Top Students S.Y. 2016-2017</li>
+<li>included in the Top Students S.Y. 2017-2018</li>
+<li>Included in the Top Students S.Y. 2018-2019</li>
+<li>Included in the Top Students S.Y. 2019-2020</li>
+<li>With Honors (1st-4th quarter) S.Y. 2020-2021</li>
+<li>With Honors (1st-2nd quarter) S.Y. 2021-2022</li>
+<li>With High Honors (3rd-4th quarter) S.Y. 2021-2022</li>
+<li>Final with High Honors S.Y. 2021-2022</li>
+<li>With Honors (2nd-3rd quarter)S.Y. 2022-2023</li>
+<li>Final with Honors S.Y. 2022-2023</li>
+<li>With Honors (1st quarter) S.Y. 2023-2024</li>
+<li>With High Honors(2nd-4thquarter) S.Y. 2023-2024</li>
+<li>Ranked 1st (２nd-4th quarter)S.Y. 2０２３－２０２４</li>
+<li>Final with High Honors  S.Y. 2023-2024</li>
+<li>With Honors (1st-2nd quarter)  S.Y. 2024-2025</li>
+<li>With High Honors(3rd-4th quarter) S.Y. 2024-2025</li>
+<li>Final with High Honors S.Y. 2024-2025</li>
+<li>With Honors (1st-2nd quarter) S.Y. 2025-2026</li>
+<li>With High Honors (3rd quarter) S.Y. 2025-2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Class officer S.Y. 2015-2016</li>
+<li>Class officer S.Y. 2016-2017</li>
+<li>Boy scout member S.Y. 2016-2017</li>
+<li>Class officer S.Y. 2017-2018</li>
+<li>Class officer S.Y. 2018-2019</li>
+<li>One of the higher position in Boy Scouts of the Philippines S.Y. 2019-2020</li>
+<li>Class officer S.Y. 2020-2021</li>
+<li>Class Vice President S.Y. 2021-2022</li>
+<li>Class P.R.O S.Y. 2023-2024</li>
+<li>Former TLE Club president S.Y. 2024-2025</li>
+<li>Class Sgt. and arms S.Y. 2025-2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Boy Scouts of the Philippines Member S.Y 2016-2017</li>
+<li>Boy Scouts of the Philippines Member S.Y 2017-2018</li>
+<li>Second Placer in Poster Making S.Y 2018-2019</li>
+<li>Boy Scouts of the Philippines Member S.Y 2018-2019</li>
+<li>2nd place in Mr.BES S.Y 2019-2020</li>
+<li>Mr. United Nation S.Y 2019-2020</li>
+<li>Intramurals Volleyball Participant S.Y 2023-2024</li>
+<li>Champion in Math Adventure S.Y 2024-2025</li>
+<li>Silver Medalist in Volleyball Intramurals S.Y2025-2026</li>
+</ul>
+</div>
+`,
+image: "g12rep1.jpg"
+},
+
+g12rep2: {
+text: `
+<h2>MOJICA, Stacey M.</h2>
+<h4>Grade 12 Representative</h4>
+
+<p><strong>Grade & Section:</strong> 11 - Rousseau</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Most creative</li> 
+<li>Top 3 in Section 1 Cauliflower </li>
+<li>Best in English S.Y. 2015-2016</li>
+<li>Best Story Reteller (Pupil's category) During the English Month Celebration </li>
+<li>With Honors </li>
+<li>Participated in MTAP</li>
+<li>Participated Mathematics Quiz Bee Team Category S.Y. 2016-2017</li>
+<li>With Honors</li>
+<li>3rd Place in Mathematics Quiz Bee Individual Category S.Y. 2017-2018</li>
+<li>With Honors </li>
+<li>Top 3 in Class Section Yakal</li>
+<li>3rd place in Science Quiz Bee Individual Category S.Y. 2018-2019</li>
+<li>Best in Filipino S.Y. 2018-2019</li>
+<li>2nd place Winner in Poem Writing Contest During the Teacher's Month Celebration </li>
+<li>Ateneo De Manila Tulong-Dunong Program Participant</li>
+<li>Contestant in the Tagis Talino Contest ( Elementary Level ) During the Division Competition in ESP</li>
+<li>Graduate With Honors</li>
+<li>Top 2 </li>
+<li>With Honors </li>
+<li>Top 3 in class</li>
+<li>With High Honors </li>
+<li>Top 1 in Math for the S.Y. 2022-2023</li>
+<li>Top 1 in Science for the S.Y. 2022-2023</li>
+<li>Rank 1 in Filipino for the 3rd Quarter S.Y. 2022-2023</li>
+<li>With Honors </li>
+<li>Participated in Sudoku Competition </li>
+<li>Best In Cookery S.Y. 2024-2025</li>
+<li>Unang Gantimpala sa Pagsulat ng Tula</li>
+<li>Graduated with honors </li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>St. Mary Elementary School's Girl Scouting Member S.Y. 2017-2018</li>
+<li>St. Mary Elementary School's Girl Scouting Member S.Y. 2016-2017</li>
+<li>Homeroom Asst. Secretary S.Y. 2022-2023</li>
+<li>Homeroom Class President S.Y. 2023-2024</li>
+<li>Homeroom Class Vice President S.Y. 2024-2025</li>
+<li>Supreme Secondary Learner Government Secretary S.Y. 2024-2025</li>
+<li>Participated in Leadership Camp 2025 Day 1 and Day 2</li>
+<li>Participated in QAME: SDOMAR DIGIZEN: Leadershape in Creating Safespaces</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+</ul>
+</div>
+`,
+image: "g12rep2.jpg"
+},
+
+g10rep1: {
+text: `
+<h2>FLORES, Sophia Trisha C.</h2>
+<h4>Grade 10 Representative</h4>
+
+<p><strong>Grade & Section:</strong> 9 - Arayat</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>S.Y. 2015-2016</li>
+<li>With High Honor - Kinder S.Y.2016-2017</li>
+<li>With Honor - Grade 1 S.Y. 2017-2018</li>
+<li>With Honor - Grade 2 S.Y. 2018-2019</li>
+<li>With Honor - Grade 3 S.Y. 2019-2020</li>
+<li>With Honor - Grade 7 S.Y. 2023-2024</li>
+<li>With Honor - Grade 9 S.Y. 2025-2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>S.Y. 2017-2018 Class Vice president</li>
+<li>S.Y. 2018-2019 Class Vice President</li>
+<li>S.Y. 2019-2020 Class Secretary</li>
+<li>S.Y. 2021-2022 Class Secretary</li>
+<li>S.Y. 2022-2023 Class Secretary</li>
+<li>S.Y. 2023-2024 Class Secretary</li>
+<li>S.Y. 2024-2025 Class P.R.O</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Most Creative Hat (English Month) Nursery S.Y. 2014-2015</li>
+<li>Outstanding pupil Nursery 2014-2015</li>
+<li>Dance Competition (inang kalikasan) Kinder S.Y. 2016-2017</li>
+<li>Awarded of being an active participant (English Month Nursery) S.Y. 2014-2015</li>
+<li>18th Place Quiz Bee (Ap category) S.Y. 2017-2018</li>
+<li>3rd Place Marikina Campus Mall Show Singing Competition Voice Academy 2023-2024</li>
+<li>UN Ap Dance Competition Group (Kalikasan)</li>
+<li>3rd Place (Choreographer)</li>
+<li>Buwan ng Wika Lakan and Lakambini Grade 8 Class Representative</li>
+<li>U.N. Champion Best In Costume</li>
+<li>Ms. JHS intramurals (2024-2025)</li>
+<li>Ms. Professional Attire (2024-2025)</li>
+</ul>
+</div>
+`,
+image: "g10rep1.jpg"
+},
+
+g10rep2: {
+text: `
+<h2>MENDOZA, Eurika Janisse C.</h2>
+<h4>Grade 10 Representative</h4>
+
+<p><strong>Grade & Section:</strong> 9 - Arayat</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Consistent Honor Student throughout Elementary School</li>
+<li>Ranked Top 1–Top 2 in the class during Grade 6</li>
+<li>Former student of the Science, Technology, and Engineering (STE) Program in Grade 7</li>
+<li>Participant in Mathematics Quiz Bee Competitions</li>
+<li>Participant in Digital Poster Competitions</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Assistant Public Relations Officer (PRO), The Lexis Society (Current School Year)</li>
+<li>Consistent Class Secretary throughout previous school years</li>
+<li>Speaker/Host in school seminars and student-led events</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Member, Thespian Guild Chorale (Current and Previous School Year)</li>
+<li>Member, The Lexis Society (Current and Previous School Year)</li>
+<li>Journalism Club Member during Grade 7</li>
+<li>Participant in Poster Making Competitions</li>
+<li>Works as a Layout Artist and Voice Actor for creative media projects since 2025</li>
+</ul>
+</div>
+`,
+image: "g10rep2.jpg"
+},
+
+g9rep1: {
+text: `
+<h2>REVAMONTE, Zaniyah Keisha A.</h2>
+<h4>Grade 9 Representative</h4>
+
+<p><strong>Grade & Section:</strong> 8 - Banaba</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Grade 8 – With Honors (1st–3rd Quarter)</li>
+<li>Grade 7 – With Honors (2nd–4th Quarter)</li>
+<li>Grade 6 – Bodily-Kinesthetic Intelligence Awardee</li>
+<li>Grade 5 – With Honors (3rd–4th Quarter)</li>
+<li>Grade 5 – Spatial Intelligence Awardee</li>
+<li>Grade 4 – With Honors (3rd–4th Quarter)</li>
+<li>Grade 4 – Linguistic Intelligence Awardee</li>
+<li>Grade 3 – With Honors (3rd–4th Quarter)</li>
+<li>Grade 3 – Interpersonal Intelligence Awardee</li>
+<li>Grade 2 – With Honors (4th Quarter)</li>
+<li>Grade 1 – With Honors (3rd–4th Quarter)</li>
+<li>Kindergarten – With Honors (1st–4th Quarter)</li>
+<li>Kindergarten – Interpersonal & Kinesthetic Intelligence Recognition</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Homeroom Vice President – AY 2024–2025</li>
+<li>Homeroom Vice President – AY 2025–2026</li>
+<li>Grade 8 Representative – Thespian Guild</li>
+<li>Co-Speaker – “Tam-Choices” Teachers’ Day Games (Thespian Guild)</li>
+<li>Section Choreography Head – Led and trained classmates in preparing class performances (AY 2023–2024, 2024–2025, 2025–2026)</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Champion – Buwan ng Wika “Tugtog Noon, Sayaw Ngayon”</li>
+<li>2nd Place – AP Dance “Kalikasan” (AY 2024–2025)</li>
+<li>1st Runner-Up – Festival Dance (AY 2024–2025)</li>
+<li>1st Place – Final Salvo – Festival (AY 2024–2025)</li>
+<li>1st Place – Overall – Festival (AY 2024–2025)</li>
+<li>Champion in Costume – Festival (AY 2024–2025)</li>
+<li>1st Place – English Month Chorale Reading Competition (AY 2024–2025)</li>
+<li>Representative – English Month Book Characterization (AY 2024–2025)</li>
+<li>Historian Monologue – 1st Runner-Up (SY 2025–2026)</li>
+<li>Cosplay Competition – Runner-Up (SY 2024–2025)</li>
+<li>Cosplay Competition – 1st Place (SY 2025–2026)</li>
+<li>ICT Week Cosplay Competition (JHS Division) – Champion</li>
+<li>Sciflix (JHS) – Champion</li>
+<li>Miss Awesome – AY 2017–2018</li>
+<li>Member – School Theater Production (AY 2019–2020; AY 2023–2024)</li>
+<li>Outstanding Talent Recognition – Thespian Guild (AY 2024–2025)</li>
+<li>Member – TCMI Fashion Academy (2017)</li>
+<li>Violinist – Participated in recitals outside school</li>
+<li>Guitarist – Participated in recitals inside school</li>
+<li>Taekwondo Player – Practiced and trained in Taekwondo</li>
+</ul>
+</div>
+`,
+image: "g9rep1.jpg"
+},
+
+g9rep2: {
+text: `
+<h2>SAYNO, Naomi Mikaela M.</h2>
+<h4>Grade 9 Representative</h4>
+
+<p><strong>Grade & Section:</strong> 8 - Banaba</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Consistent With Honors from 1st-3rd Quarter </li>
+<li>Consistent With Honors SY 2024-2025</li>
+<li>Gr. 8 Buwan ng Wika Champion "Tugtog Noon, Sayaw Ngayon" </li>
+<li>Sciflix Champion SY 2025-2026</li>
+<li>Best in Mathematics SY 2017-2018</li>
+<li>Historian Monologue First Runner up SY 2025-2026</li>
+<li>Festival Dance First Runner-up SY 2024-2025</li>
+<li>1st Place overall Festival dance SY 2024-2025</li>
+<li>Festival Champion in Costume SY 2024-2025</li>
+<li>1st Place Chorale Reading Competition (English Month) SY 2024-2025</li>
+<li>2nd place AP dance (Kalikasan) SY 2024-2025</li>
+<li>1st Place - Final Salvo - Festival SY. 2024-2025</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Homeroom Secretary SY 2024-2025</li>
+<li>Homeroom Secretary SY 2025-2026</li>
+<li>Gr. 8 Kusina Buddies Representative SY 2025-2026</li>
+<li>Club President of Servants of the Lord SY 2023-2024</li>
+<li>Class officer, Peace Maker SY 2020-2021</li>
+<li>Most Responsible Servants of the Lord club member</li>
+<li>Most Respectful in Kindergarten SY 2017-2018</li>
+<li>Section Choreography Assistant – Led and helped train classmates in preparing class performances (SY. 2024–2025, 2025–2026)</li>
+<li>Editor in Chief, Campus Journalism SY 2025-2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Participated in leadershift seminar SY 2024-2025</li>
+<li>Intrams participant (ESPORTS)  SY 2025-2026</li>
+<li>Participated in a seminar entitled "Leading with a Purpose: Developing effective and responsible leaders" SY 2025-2026 as an club officer</li>
+<li>Best buddies beyblade shooting contest Champion 2021</li>
+<li>Honorable Mention Award SY 2017-2018</li>
+<li>Benedictine Child of the Quarter SY 2023-2024</li>
+</ul>
+</div>
+`,
+image: "g9rep2.jpg"
+},
+
+g8rep1: {
+text: `
+<h2>ARCILLA, Bettina Bianca S.</h2>
+<h4>Grade 8 Representative</h4>
+
+<p><strong>Grade & Section:</strong> 7 - Camia</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>2016-2019 - Consistent Top 1/Valedictorian Nursery, Kinder, Prep</li>
+<li>2019-2020 - With High Honors</li>
+<li>2020-2021 - With High Honors</li>
+<li>2021-2022 - With High Honors, With Highest Honors 4th Quarter</li>
+<li>2022-2023 - With High Honors</li>
+<li>2023-2024 - With High Honors</li>
+<li>2024-2025 - With High Honors</li>
+<li>2024–2025  -Scholastic 100 Lexile Growth Award</li>
+<li>  2024-2025 - Scholastic Math Pro Awardee</li>
+<li>2025-PRESENT - 1st-3rd Quarter - With Honors</li>
+<li>2025- PRESENT  - ALEKS Awardee 1st-3rd Quarter</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>S.Y. 2021-2022 - Class President</li>
+<li>S.Y. 2022-2023 - Class President</li>
+<li>S.Y. 2023-2024 - Class President</li>
+<li>S.Y. 2024-2025 - Sergeant at Arms</li>
+<li>S.Y. 2025-2026 - Class President</li>
+<li>2024- Present - FEURM Sports Club Member (Badminton)</li>
+<li>2025- Present  - FEURM Thespian Guild Grade 7 Representative</li>
+<li>2025- Present- Church Connect Group Leader</li>
+<li>2023 -Present - Tambourine, Dance & Performing Arts Ministry Member (Church So  Blessed)</li>
+<li>2025 December - Revival Group Leader- Revival Generation "Revivalist" Youth Camp (Church So Blessed)</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>2018-2019 – Member TRIMED Advertising</li>
+<li>2018-2019 – Member Talents Academy</li>
+<li>2019  June - Participant Philippines’ Little Stars</li>
+<li>2019 -Participated in Samaritan’s Purse International Gift-giving Mission Outreach Cupang, Antipolo</li>
+<li>2019-2020 - Best in English & Filipino</li>
+<li>2020-2021 - Best in English & Filipino</li>
+<li>2021 - Assisted in Pasig Kids Discipleship Outreach</li>
+<li>2021-2022 - Best in English, Math, Science & Filipino, Outstanding in Conduct Awardee</li>
+<li>2021-2022 – United Nations Costume -Champion</li>
+<li>2021-2022 - DIY English Book Month Character Portrayal- Champion</li>
+<li>2021-2022 - Declamation Champion</li>
+<li>2022-2023 – Declamation Champion</li>
+<li>2022-2023 – Storytelling Champion</li>
+<li>2022 -2023 - Member Badminton Club</li>
+<li>202２-２０２３ - Member Arts Club</li>
+<li>２０２２ - Assistant Teacher Samaritan’s Purse International- Pasig Kids Mission Outreach- </li>
+<li>２０２２ - Assisted in Samaritan’s Purse International Gift-giving Mission- Marikina heights</li>
+<li>２０２３-２０２４ – Math-Sci Quiz Bee 1st Runner Up</li>
+<li>2023-2024 – Spelling Bee -1st Runner Up</li>
+<li>2023-2024 – Storytelling 1st Runner Up</li>
+<li>2023-2024 – English Month Character Cosplay -Champion</li>
+<li>2023-2024 -  Declamation – Champion</li>
+<li>2023-2024 – Essay Writing- Champion</li>
+<li>2023-2024 – Drawing Competition -Champion</li>
+<li>2023- 2024 – Best in Araling Panlipunan, Best in English</li>
+<li>2023- 2024 – Drum & Lyre Corps Member</li>
+<li>2023- 2024 – Majorette/Baton Twirler Drum & Lyre Corps</li>
+<li>2023-2024 – Best Leader Award</li>
+<li>2023 -2024 - UNIPRISA Muse (Elementary)</li>
+<li>2023- 2024 - Volleyball Team Member</li>
+<li>2024- 2025  - FEURM JHS Chorale Member</li>
+<li>2024 - FEURM Poster Making Contest – 1st Place</li>
+<li>2024 - FEURM Summer Sports Camp Badminton Participant</li>
+<li>2024 - FEURM Intrams  Women’s Singles Badminton - 2nd Place</li>
+<li>2025 - FEURM Summer Sports Camp Badminton Participant</li>
+<li>2025 - FEURM Summer Dance Camp participant</li>
+<li>2025 -  FEURM  Intrams Women’s Doubles Badminton – 3rd Place</li>
+<li>2025 - FEURM (Choreographer/Leader) Interpretative Dance -Champion</li>
+<li>2025 - FEURM  Tableau -Champion</li>
+<li>2025 - FEURM  Tamswalk Welcome Dance Participant</li>
+<li>2025 - FEURM   Buwan ng Wika Indakan Participant</li>
+<li>2025 - FEURM   Thespian Guild Special Number SM Marikina</li>
+<li>2025 - FEURM Thespian Guild Flashmob Participant (FEURM Christmas Lighting, SM Marikina, Ayala Feliz, Marikina Clock Tower)</li>
+<li>2025 Dec – Devotional Speaker Revival Generation Revivalist Youth Camp</li>
+</ul>
+</div>
+`,
+image: "g8rep1.jpg"
+},
+
+g8rep2: {
+text: `
+<h2>FELIAS, Earin Jaden S.</h2>
+<h4>Grade 8 Representative</h4>
+
+<p><strong>Grade & Section:</strong> 7 - Anthurium</p>
+
+<div class="credentials-section">
+<h5>Academic Background</h5>
+<ul>
+<li>Consistent With Honors up to now</li>
+<li>Math Awardee</li>
+<li>Scholastic Awardee</li>
+<li>Spelling Bee Placer</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Leadership Background</h5>
+<ul>
+<li>Class President 2023-2024</li>
+<li>GSP Assistant-Leader and Leader. 2024-2025</li>
+<li>Grade 7 Representative of FEURM 2025-2026</li>
+</ul>
+</div>
+
+<div class="credentials-section">
+<h5>Extracurricular Activities</h5>
+<ul>
+<li>Lathalarawan Champion (2025)</li>
+<li>Badminton Women's Singles 1st place (2024)</li>
+<li>Badminton Women's Doubles 3rd place (2025)</li>
+<li>Miss United Nations 2024</li>
+<li>Queen of the night 2025</li>
+<li>Speaker for seminar of, discovering your why</li>
+<li>GSP Assistant-Leader and Leader. 2024-2025</li>
+<li>Grade 7 Representative of FEURM 2025-2026</li>
+<li>Class Muse 2024-2025</li>
+</ul>
+</div>
+`,
+image: "g8rep2.jpg"
+},
+
+};
+
+function openModal(id) {
+
+document.getElementById("modal-text").innerHTML = candidates[id].text;
+
+document.getElementById("modal-image").src = candidates[id].image;
+
+document.getElementById("modal").style.display = "flex";
+
+}
+
+function closeModal() {
+document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+if (event.target == document.getElementById("modal")) {
+closeModal();
+}
+}
+
+</script>
+
+</body>
+</html>
