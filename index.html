@@ -149,6 +149,7 @@ header h1 {
     padding: 25px;
     text-align: left;
     max-height: 500px;
+    overflow-y: auto;
 }
 
 .modal-text h2 {
@@ -170,6 +171,30 @@ header h1 {
     margin-bottom: 10px;
 }
 
+/* Gold Scrollbar */
+
+.modal-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-text::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+.modal-text::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,#FFD700,#B8860B);
+    border-radius: 10px;
+}
+
+.modal-text::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg,#FFE55C,#C89B00);
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+    
 /* RIGHT SIDE */
 .modal-photo {
     width: 40%;
@@ -245,6 +270,11 @@ footer {
     overflow-y: auto;
 }
 
+.overlay.blur {
+    filter: blur(6px);
+    transition: filter 0.3s ease;
+}
+
 @keyframes popupAnimation {
     from {
         transform: scale(0.7);
@@ -257,6 +287,40 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .card img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .card {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+        .modal-content {
+        flex-direction: column;
+        width: 95%;
+    }
+
+    .modal-text {
+        width: 100%;
+        max-height: none;
+    }
+
+    .modal-photo {
+        width: 100%;
+    }
+
+    .modal-photo img {
+        width: 100%;
+        height: auto;
+    }
 
     .platforms {
         grid-template-columns: 1fr;
@@ -1528,10 +1592,23 @@ document.getElementById("modal-image").src = candidates[id].image;
 
 document.getElementById("modal").style.display = "flex";
 
+/* lock page scroll */
+document.body.classList.add("modal-open");
+
+/* blur background */
+document.querySelector(".overlay").classList.add("blur");
+
 }
 
 function closeModal() {
 document.getElementById("modal").style.display = "none";
+    
+/* unlock scroll */
+document.body.classList.remove("modal-open");
+
+/* remove blur */
+document.querySelector(".overlay").classList.remove("blur");
+
 }
 
 window.onclick = function(event) {
@@ -1545,4 +1622,3 @@ closeModal();
 </body>
 
 </html>
-
