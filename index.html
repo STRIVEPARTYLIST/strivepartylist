@@ -122,6 +122,7 @@ header h1 {
     background: rgba(0,0,0,0.7);
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
 }
 
 .modal-content {
@@ -130,12 +131,10 @@ header h1 {
     border-radius: 15px;
     width: 750px;
     max-width: 95%;
-    height: 90vh;
-    display: flex;
+    max-height: 90vh;
     overflow: hidden;
     position: relative;
-    animation: popupAnimation 0.35s ease;
-
+    overflow-y: auto;
     /* glow border */
     border: 2px solid rgba(255,215,0,0.8);
     box-shadow: 0 0 10px rgba(255,215,0,0.8),
@@ -146,10 +145,9 @@ header h1 {
 
 /* LEFT SIDE */
 .modal-text {
-    width: 60%;
+    width: 100%;
     padding: 25px;
     text-align: left;
-    overflow-y: auto;
     scroll-behavior: smooth;
 }
 
@@ -174,21 +172,21 @@ header h1 {
 
 /* Gold Scrollbar */
 
-.modal-text::-webkit-scrollbar {
+.modal-content::-webkit-scrollbar {
     width: 8px;
 }
 
-.modal-text::-webkit-scrollbar-track {
+.modal-content::-webkit-scrollbar-track {
     background: rgba(255,255,255,0.05);
     border-radius: 10px;
 }
 
-.modal-text::-webkit-scrollbar-thumb {
+.modal-content::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg,#FFD700,#B8860B);
     border-radius: 10px;
 }
 
-.modal-text::-webkit-scrollbar-thumb:hover {
+.modal-content::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg,#FFE55C,#C89B00);
 }
 
@@ -296,11 +294,7 @@ footer {
 }
 
 .card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 10px;
+    height: 150px;
 }
 
 .card {
@@ -308,8 +302,8 @@ footer {
 }
 
 .modal-content {
-    flex-direction: column;
-    height: 90vh;
+    width: 95%;
+    max-height: 95vh;
 }
 
 .modal-photo {
@@ -320,11 +314,12 @@ footer {
 .modal-photo img {
     width: 100%;
     height: 100%;
-    object-fit: scale-down;
-    object-position: center;
+    object-fit: cover;
 }
 
 .modal-text {
+    font-size: 15px;
+    line-height: 1.6;
     width: 100%;
     height: 60%;
     overflow-y: auto;
@@ -355,7 +350,7 @@ header h1 {
     <img src="logo.png" alt="Partylist Logo">
     <h1></h1>
     <div class="full-name">Servant-Hearted, Transformative, and Responsible Leaders with Integrity, guided by Vision and committed to Empowering others.</div>
-    <div class="slogan">"Leadership. Integrity. Action."</div>
+    <div class="slogan">"Sa lider na may integridad at bisyon, S.T.R.I.V.E. ang tamang desisyon!"</div>
 </header>
 
 <h2 class="section-title">Executive Officers</h2>
@@ -372,7 +367,7 @@ header h1 {
 <div class="card" onclick="openModal('vicepresident')">
     <img src="vicepresident.jpg">
     <div class="surname">PANGUE</div>
-    <div class="firstname">Princess Mae "Hilarie" B.</div>
+    <div class="firstname">Princess Mae B. (Hilarie)</div>
     <div class="position">Vice President</div>
 </div>
 
@@ -518,11 +513,6 @@ header h1 {
 <span class="close" onclick="closeModal()">&times;</span>
 
 <div class="modal-text" id="modal-text">
-</div>
-
-<div class="modal-photo">
-<img id="modal-image" src="">
-</div>
 
 </div>
 
@@ -562,25 +552,25 @@ text: `
 <div class="credentials-section">
 <h5>Leadership Background</h5>
 <ul>
-<li>FEU Roosevelt Marikina Student Council Representative, S.Y. 2021–2022</li>
-<li>FEU Roosevelt Marikina  Student Council Representative, S.Y. 2022–2023</li>
-<li>FEU Roosevelt Marikina Student Council Representative, S.Y. 2024–2025</li>
-<li>FEU Roosevelt Marikina Peer Counseling Society Assistant Secretary, S.Y. 2023–2024</li>
-<li>FEU Roosevelt Marikina President’s Executive Staff, S.Y. 2024–2025</li>
-<li>FEU Roosevelt Marikina President’s Executive Staff, S.Y. 2025–2026</li>
-<li>FEU Roosevelt Marikina Leadership Awardee, Batch 2024–2025</li>
-<li>Student Leader, 2019–onwards</li>
+<li>FEU Roosevelt Marikina Student Council Representative, S.Y. 2021 – 2022</li>
+<li>FEU Roosevelt Marikina  Student Council Representative, S.Y. 2022 – 2023</li>
+<li>FEU Roosevelt Marikina Student Council Representative, S.Y. 2024 – 2025</li>
+<li>FEU Roosevelt Marikina Peer Counseling Society Assistant Secretary, S.Y. 2023 – 2024</li>
+<li>FEU Roosevelt Marikina President’s Executive Staff, S.Y. 2024 – 2025</li>
+<li>FEU Roosevelt Marikina President’s Executive Staff, S.Y. 2025 – 2026</li>
+<li>FEU Roosevelt Marikina Leadership Awardee, Batch 2024 – 2025</li>
+<li>Student Leader, 2019 – onwards</li>
 <li>FEU Roosevelt Student Leadership Summit, FEUR Cainta, 2024</li>
 <li>FEU Roosevelt Student Leadership Summit, FEUR Marikina, 2025</li>
 <li>Homeroom Officer (President, Vice President, or Secretary), Elementary</li>
-<li>Class President, S.Y. 2022–2023</li>
-<li>Class President, S.Y. 2023–2024</li>
-<li>Class President, S.Y. 2024–2025</li>
-<li>Class President, S.Y. 2025–2026</li>
-<li>Editor-in-Chief, Campus Journalism, S.Y. 2022–2023</li>
-<li>Team Debate Captain, S.Y. 2022–2023</li>
-<li>FEU Roosevelt (FEURM) Kusina Buddies Member, S.Y. 2022–2023</li>
-<li>FEU Roosevelt (FEURM) Kusina Buddies Member, S.Y. 2023–2024</li>
+<li>Class President, S.Y. 2022 – 2023</li>
+<li>Class President, S.Y. 2023 – 2024</li>
+<li>Class President, S.Y. 2024 – 2025</li>
+<li>Class President, S.Y. 2025 – 2026</li>
+<li>Editor-in-Chief, Campus Journalism, S.Y. 2022 – 2023</li>
+<li>Team Debate Captain, S.Y. 2022 – 2023</li>
+<li>FEU Roosevelt (FEURM) Kusina Buddies Member, S.Y. 2022 – 2023</li>
+<li>FEU Roosevelt (FEURM) Kusina Buddies Member, S.Y. 2023 – 2024</li>
 </ul>
 </div>
 
@@ -596,34 +586,37 @@ text: `
 <li>Debate Winner, “Whether or Not Remulla Is Deserving to Be Ombudsman,” S.Y. 2025–2026</li>
 <li>Debate Winner, “Whether or Not Marijuana Should Be Legalized for Healthcare Purposes,” S.Y. 2025–2026</li>
 <li>Debate Winner, “Whether or Not the Philippines Should Sever Diplomatic Ties with China over Territorial Disputes,” S.Y. 2025–2026</li>
-<li>English Debate Participant, S.Y. 2024–2025</li>
-<li>Science Quiz Bee Participant, S.Y. 2025–2026</li>
-<li>2nd Place, Battle of the Brains, S.Y. 2022–2023</li>
-<li>Girl Scout, Marikina Catholic School, S.Y. 2015–2016</li>
-<li>Best in Poem Writing, S.Y. 2017–2018</li>
-<li>Best in Poem Writing, S.Y. 2018–2019</li>
-<li>1st Place, Drawing Contest, S.Y. 2019–2020</li>
-<li>Champion (1st Place), Cultural Dance Contest, S.Y. 2020–2021</li>
-<li>1st Place, Spelling Bee, S.Y. 2020–2021</li>
+<li>English Debate Participant, S.Y. 2024 – 2025</li>
+<li>Science Quiz Bee Participant, S.Y. 2025 – 2026</li>
+<li>2nd Place, Battle of the Brains, S.Y. 2022 – 2023</li>
+<li>Girl Scout, Marikina Catholic School, S.Y. 2015 – 2016</li>
+<li>Best in Poem Writing, S.Y. 2017 – 2018</li>
+<li>Best in Poem Writing, S.Y. 2018 – 2019</li>
+<li>1st Place, Drawing Contest, S.Y. 2019 – 2020</li>
+<li>Champion (1st Place), Cultural Dance Contest, S.Y. 2020 - 2021</li>
+<li>1st Place, Spelling Bee, S.Y. 2020 - 2021</li>
 <li>1st Place, Storytelling Contest</li>
-<li>Champion, Slogan Making, S.Y. 2020–2021</li>
-<li>Filipino Quiz Bee Participant, S.Y. 2023–2024</li>
+<li>Champion, Slogan Making, S.Y. 2020 – 2021</li>
+<li>Filipino Quiz Bee Participant, S.Y. 2023 – 2024</li>
 <li>3rd Place, FEURM Dancing Contest</li>
-<li>Member, Kusina Buddies Club, S.Y. 2022–2023</li>
-<li>ICT Week Participant (Coding), S.Y. 2024–2025</li>
-<li>FEURM Talumpati Participant, S.Y. 2024–2025</li>
-<li>Event Emcee, S.Y. 2019–2026</li>
-<li>Participated in Science Quiz Bee 2025—2026</li>
-<li>Facilitators in Open House 2021—2022</li>
-<li>LGBTQ and Women's advocate 2024—2025</li>
-<li>Participated in ICT week 2024—2025</li>
-<li>Emcee in Flag Ceremony 2024—2025</li>
-<li>Leaders in Flag Ceremony 2023—2024</li>
-<li>Host in Choosing your Career Path 2021-2022</li>
+<li>Member, Kusina Buddies Club, S.Y. 2022 - 2023</li>
+<li>ICT Week Participant (Coding), S.Y. 2024 - 2025</li>
+<li>FEURM Talumpati Participant, S.Y. 2024 - 2025</li>
+<li>FEURM Amazing Race Facilitator, S.Y. 2024 - 2025</li>
+<li>Lead FEU Students in Campus Yell, S.Y. 2024 - 2025</li>
+<li>Event Emcee, S.Y. 2019 - 2026</li>
+<li>Participated in Science Quiz Bee 2025 — 2026</li>
+<li>Facilitators in Open House 2021 — 2022</li>
+<li>LGBTQ and Women's advocate 2024 — 2025</li>
+<li>Participated in ICT week 2024 — 2025</li>
+<li>Emcee in Flag Ceremony 2024 — 2025</li>
+<li>Leaders in Flag Ceremony 2023 — 2024</li>
+<li>Host in Choosing your Career Path 2021 - 2022</li>
 <li>Winner in Eco Fashion show (Taylor)</li>
 <li>Tutor in Orphanage and Children at Marikina</li>
 <li>Part of AVP about choosing FEU — "Go Up" by SB19</li>
-<li>Black out poetry — Effective Communication S.Y. 2025—2026</li>
+<li>Black out poetry — Effective Communication S.Y. 2025 — 2026</li>
+<li>Leader of Marshall FEURM Foundation Day, S.Y. 2025 - 2026</li>
 </ul>
 </div>
 `,
@@ -632,7 +625,7 @@ image: "president2.jpg"
 
 vicepresident: {
 text: `
-<h2>PANGUE, Princess Mae "Hilarie" B.</h2>
+<h2>PANGUE, Princess Mae B. (Hilarie)</h2>
 <h4>Vice President</h4>
 
 <p><strong>Grade & Section:</strong> 11 - Weber</p>
@@ -698,7 +691,6 @@ text: `
 <li>Participated in Fire Rescue Training In United Marikina Community Fire and Rescue Volunteer</li>
 <li>Member of Squirettes of Mary Immaculate Year 2022 to 2025</li>
 <li>Part of St. Gabriel Parish Church Choir 2022-2023</li>
-<li>Participated in TamsWalk Flashmob S.Y 2025-2026</li>
 <li>Participated in Debate S.Y 2025-2026</li>
 <li>Participated in Thespian Guild Christmas Flashmob at SM Marikina and Clock Tower S.Y 2025-2026</li>
 <li>President of Squirettes of Mary Immaculate Year 2025-2026</li>
@@ -1111,60 +1103,59 @@ text: `
 <div class="credentials-section">
 <h5>Academic Background</h5>
 <ul>
-<li>Top Award S.Y. 2014-2015</li>
-<li>2 special Award S.Y. 2014-2015</li>
-<li>included in the Top Students S.Y. 2016-2017</li>
-<li>included in the Top Students S.Y. 2016-2017</li>
-<li>included in the Top Students S.Y. 2017-2018</li>
-<li>Included in the Top Students S.Y. 2018-2019</li>
-<li>Included in the Top Students S.Y. 2019-2020</li>
-<li>With Honors (1st-4th quarter) S.Y. 2020-2021</li>
-<li>With Honors (1st-2nd quarter) S.Y. 2021-2022</li>
-<li>With High Honors (3rd-4th quarter) S.Y. 2021-2022</li>
-<li>Final with High Honors S.Y. 2021-2022</li>
-<li>With Honors (2nd-3rd quarter)S.Y. 2022-2023</li>
-<li>Final with Honors S.Y. 2022-2023</li>
-<li>With Honors (1st quarter) S.Y. 2023-2024</li>
+<li>Top Award S.Y. 2014 - 2015</li>
+<li>2 special Award S.Y. 2014 - 2015</li>
+<li>included in the Top Students S.Y. 2015 - 2016</li>
+<li>included in the Top Students S.Y. 2016 - 2017</li>
+<li>included in the Top Students S.Y. 2017 - 2018</li>
+<li>Included in the Top Students S.Y. 2018 - 2019</li>
+<li>Included in the Top Students S.Y. 2019 - 2020</li>
+<li>With Honors (1st - 4th quarter) S.Y. 2020 - 2021</li>
+<li>With Honors (1st - 2nd quarter) S.Y. 2021 - 2022</li>
+<li>With High Honors (3rd - 4th quarter) S.Y. 2021 - 2022</li>
+<li>Final with High Honors S.Y. 2021 - 2022</li>
+<li>With Honors (2nd - 3rd quarter) S.Y. 2022 - 2023</li>
+<li>Final with Honors S.Y. 2022 - 2023</li>
+<li>With Honors (1st quarter) S.Y. 2023 - 2024</li>
 <li>With High Honors(2nd-4thquarter) S.Y. 2023-2024</li>
-<li>Ranked 1st (２nd-4th quarter)S.Y. 2０２３－２０２４</li>
+<li>Ranked 1st (2nd - 4th quarter)S.Y. 2023-2024</li>
 <li>Final with High Honors  S.Y. 2023-2024</li>
-<li>With Honors (1st-2nd quarter)  S.Y. 2024-2025</li>
-<li>With High Honors(3rd-4th quarter) S.Y. 2024-2025</li>
+<li>With Honors (1st - 2nd quarter)  S.Y. 2024-2025</li>
+<li>With High Honors(3rd - 4th quarter) S.Y. 2024-2025</li>
 <li>Final with High Honors S.Y. 2024-2025</li>
-<li>With Honors (1st-2nd quarter) S.Y. 2025-2026</li>
-<li>With High Honors (3rd quarter) S.Y. 2025-2026</li>
+<li>With Honors (1st - 2nd quarter) S.Y. 2025 - 2026</li>
+<li>With High Honors (3rd quarter) S.Y. 2025 - 2026</li>
 </ul>
 </div>
 
 <div class="credentials-section">
 <h5>Leadership Background</h5>
 <ul>
-<li>Class officer S.Y. 2015-2016</li>
-<li>Class officer S.Y. 2016-2017</li>
-<li>Boy scout member S.Y. 2016-2017</li>
-<li>Class officer S.Y. 2017-2018</li>
-<li>Class officer S.Y. 2018-2019</li>
-<li>One of the higher position in Boy Scouts of the Philippines S.Y. 2019-2020</li>
-<li>Class officer S.Y. 2020-2021</li>
-<li>Class Vice President S.Y. 2021-2022</li>
-<li>Class P.R.O S.Y. 2023-2024</li>
-<li>Former TLE Club president S.Y. 2024-2025</li>
-<li>Class Sgt. and arms S.Y. 2025-2026</li>
+<li>Class officer S.Y. 2015 - 2016</li>
+<li>Class officer S.Y. 2016 - 2017</li>
+<li>Class officer S.Y. 2017 - 2018</li>
+<li>Class officer S.Y. 2018 - 2019</li>
+<li>One of the Higher position in Boy Scouts of the Philippines S.Y. 2019 - 2020</li>
+<li>Class officer S.Y. 2020 - 2021</li>
+<li>Class Vice President S.Y. 2021 - 2022</li>
+<li>Class P.R.O S.Y. 2023 - 2024</li>
+<li>Former TLE Club president S.Y. 2024 - 2025</li>
+<li>Class Sgt. and arms S.Y. 2025 - 2026</li>
 </ul>
 </div>
 
 <div class="credentials-section">
 <h5>Extracurricular Activities</h5>
 <ul>
-<li>Boy Scouts of the Philippines Member S.Y 2016-2017</li>
-<li>Boy Scouts of the Philippines Member S.Y 2017-2018</li>
-<li>Second Placer in Poster Making S.Y 2018-2019</li>
-<li>Boy Scouts of the Philippines Member S.Y 2018-2019</li>
-<li>2nd place in Mr.BES S.Y 2019-2020</li>
-<li>Mr. United Nation S.Y 2019-2020</li>
-<li>Intramurals Volleyball Participant S.Y 2023-2024</li>
-<li>Champion in Math Adventure S.Y 2024-2025</li>
-<li>Silver Medalist in Volleyball Intramurals S.Y2025-2026</li>
+<li>Boy Scouts of the Philippines Member S.Y. 2016 - 2017</li>
+<li>Boy Scouts of the Philippines Member S.Y. 2017 - 2018</li>
+<li>Second Placer in Poster Making S.Y. 2018 - 2019</li>
+<li>Boy Scouts of the Philippines Member S.Y. 2018 - 2019</li>
+<li>2nd place in Mr.BES S.Y. 2019 - 2020</li>
+<li>Mr. United Nation S.Y. 2019 - 2020</li>
+<li>Intramurals Volleyball Participant S.Y. 2023 - 2024</li>
+<li>Champion in Math Adventure S.Y. 2024 - 2025</li>
+<li>Silver Medalist in Volleyball Intramurals S.Y. 2025 - 2026</li>
 </ul>
 </div>
 `,
@@ -1594,9 +1585,6 @@ image: "g8rep2.jpg"
 function openModal(id) {
 
 document.getElementById("modal-text").innerHTML = candidates[id].text;
-
-document.getElementById("modal-image").src = candidates[id].image;
-
 document.getElementById("modal").style.display = "flex";
 
 /* lock page scroll */
