@@ -130,6 +130,7 @@ header h1 {
     border-radius: 15px;
     width: 750px;
     max-width: 95%;
+    height: 90vh;
     display: flex;
     overflow: hidden;
     position: relative;
@@ -148,8 +149,8 @@ header h1 {
     width: 60%;
     padding: 25px;
     text-align: left;
-    max-height: 500px;
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 .modal-text h2 {
@@ -205,7 +206,8 @@ body.modal-open {
 .modal-photo img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background: #111;
 }
 
 .close {
@@ -288,52 +290,57 @@ footer {
 
 @media (max-width: 768px) {
 
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
+.candidates {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
 
-    .card img {
-        width: 80px;
-        height: 80px;
-    }
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
 
-    .card {
-        padding: 10px;
-        font-size: 13px;
-    }
+.card {
+    padding: 12px;
+}
 
-        .modal-content {
-        flex-direction: column;
-        width: 95%;
-    }
+.modal-content {
+    flex-direction: column;
+    height: 90vh;
+}
 
-    .modal-text {
-        width: 100%;
-        max-height: none;
-    }
+.modal-photo {
+    width: 100%;
+    height: 40%;
+}
 
-    .modal-photo {
-        width: 100%;
-    }
+.modal-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+    object-position: center;
+}
 
-    .modal-photo img {
-        width: 100%;
-        height: auto;
-    }
+.modal-text {
+    width: 100%;
+    height: 60%;
+    overflow-y: auto;
+}
 
-    .platforms {
-        grid-template-columns: 1fr;
-    }
+header img {
+    width: 140px;
+}
 
-    header img {
-        width: 140px;
-    }
+header h1 {
+    font-size: 24px;
+}
 
-    header h1 {
-        font-size: 24px;
-    }
-
+.platforms {
+    grid-template-columns: 1fr;
+}
 
 }
 
